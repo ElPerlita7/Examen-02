@@ -10,7 +10,7 @@ Escriba un programa que acepte tres cadenas:
 
 El programa debe mostrar el resultado de la operación aritmética solicitada, seguido de un salto de línea.
  Si el número de parámetros no es 3, el programa simplemente muestra un salto de línea.
-Se puede asumir que la cadena no contiene errores ni caracteres extraños. Los números negativos, 
+Se puede asumir que la cadena no contiene errores ni caracteres extraños. Los números negativos,
 tanto en la entrada como en la salida, tendrán un solo '-' inicial. El resultado de la operación cabe en un entero.
 
 Ejemplos:
@@ -30,6 +30,11 @@ void putnbr(int num)
 {
     char result;
 
+	if (num < 0)
+	{
+		num = -num;
+		write(1, "-", 1);
+	}
     if (num < 10)
     {
         result = '0' + num;
@@ -51,29 +56,25 @@ int main(int argc, char **argv)
     if (argc != 4)
         return(write(1, "\n", 1));
 
+// 	if
+// 	(!(argv[2][0] == '+' || argv[2][0] == '-' || argv[2][0] == '*' || argv[2][0] == '/' || argv[2][0] == '%') || argv[2][1] != '\0')
+//    {
+// 		return (write(1, "\n", 1), 0);
+//    }
+
     num1 = atoi(argv[1]);
     num2 = atoi(argv[3]);
 
     if(argv[2][0] == '+')
-    {
         result = num1 + num2;
-    }
     else if(argv[2][0]== '-')
-    {
         result = num1 - num2;
-    }
     else if(argv[2][0] == '*')
-    {
         result = num1 * num2;
-    }
     else if(argv[2][0] == '/')
-    {
         result = num1 / num2;
-    }
-    else if(argv[2][0] == '%')
-    {
+    else
         result = num1 % num2;
-    }
     putnbr(result);
     write(1, "\n", 1);
     return(0);
