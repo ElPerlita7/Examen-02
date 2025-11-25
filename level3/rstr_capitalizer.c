@@ -71,45 +71,81 @@ $>*/
 // 	return (0);
 // }
 
+// #include <unistd.h>
+
+// int main(int argc, char **argv)
+// {
+// 	int i;
+// 	int j;
+// 	char c;
+
+// 	if (argc < 2)
+// 	{
+// 		write(1, "\n", 1);
+// 		return (0);
+// 	}
+// 	i = 1;
+// 	while (i < argc)
+// 	{
+// 		j = 0;
+// 		while (argv[i][j] != '\0')
+// 		{
+// 			c = argv[i][j];
+
+// 			/* pasar todo a minúscula */
+// 			if (c >= 'A' && c <= 'Z')
+// 				c = c + 32;
+
+
+// 			if ((c >= 'a' && c <= 'z') && (argv[i][j + 1] == ' ' || argv[i][j + 1] == '\t' || argv[i][j + 1] == '\0'))
+// 			{ // Si es a o z minuscula y es la siguiente posicion del caracter es igual a espacio o tab o nulo
+// 				c = c - 32; // convertirla en mayuscula;
+// 			}
+// 			write(1, &c, 1); // imprimir la palabra
+// 			j++;
+// 		}
+
+// 		if (i < argc - 1) // Si hay más cadenas por imprimir, añade salto de línea. Si es la última, no.
+// 			write(1, "\n", 1);
+// 		i++;
+// 	}
+
+// 	write(1, "\n", 1);
+// 	return (0);
+// }
 #include <unistd.h>
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-	int i;
+	int i = 1;
 	int j;
 	char c;
 
 	if (argc < 2)
-	{
-		write(1, "\n", 1);
-		return (0);
-	}
-	i = 1;
+		return (write (1, "\n", 1), 0);
+
 	while (i < argc)
 	{
 		j = 0;
 		while (argv[i][j] != '\0')
 		{
 			c = argv[i][j];
-
-			/* pasar todo a minúscula */
-			if (c >= 'A' && c <= 'Z')
-				c = c + 32;
-
-
 			if ((c >= 'a' && c <= 'z') && (argv[i][j + 1] == ' ' || argv[i][j + 1] == '\t' || argv[i][j + 1] == '\0'))
-			{ // Si es a o z minuscula y es la siguiente posicion del caracter es igual a espacio o tab o nulo
-				c = c - 32; // convertirla en mayuscula;
+			{
+				c = c - 32;
+				write (1, &c, 1);
 			}
-			write(1, &c, 1); // imprimir la palabra
+			else
+			{
+				if (c >= 'A' && c <= 'Z')
+				c = c + 32;
+				write (1, &c, 1);
+			}
+			if (argc - 1 < i)
+			write (1 , "\n", 1);
 			j++;
 		}
-
-		if (i < argc - 1) // Si hay más cadenas por imprimir, añade salto de línea. Si es la última, no.
-			write(1, "\n", 1);
+		write(1, "\n", 1);
 		i++;
 	}
-
-	write(1, "\n", 1);
-	return (0);
 }
